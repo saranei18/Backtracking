@@ -1,0 +1,45 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+
+using namespace std;
+int sum1=0;
+vector<int>v;
+void permute(vector<int>&nums,vector<int>&chosen)
+{
+    if(nums.empty())
+    {
+        int counts=0;
+        for(int i=0;i<chosen.size();i++)
+            counts^=chosen[i];
+        v.push_back(counts);
+    }
+    else
+    {
+            //choose
+            int t=nums[0];
+            vector<int>::iterator it;
+            it = nums.begin();
+            nums.erase(it);
+            //choose with
+            chosen.push_back(t);
+            permute(nums,chosen);
+            //choose without
+            chosen.pop_back();
+            permute(nums,chosen);
+            //unchoose
+            auto itr = nums.insert(nums.begin(), t);
+    }
+}
+int main()
+{
+    vector<int>nums;
+    nums.push_back(3);
+    nums.push_back(1);
+    int sum=0;
+    vector<int>chosen;
+    permute(nums,chosen);for(int i=0;i<v.size();i++)sum+=v[i];
+    cout<<sum;
+    return 0;
+
+}
