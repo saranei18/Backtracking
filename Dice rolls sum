@@ -1,0 +1,44 @@
+#include<iostream>
+#include<algorithm>
+#include<string.h>
+#include<string>
+#include<stdio.h>
+using namespace std;
+
+
+
+void dice_permute(int digits,string res)
+{
+	if(digits==0)
+	{
+		int sum=0;
+		int i=0;
+		while(i<res.length())
+		{
+		    sum+=res[i++]-'0';
+		}
+		if(sum==7)
+		{
+		   cout<<"{";
+	    cout<<res[0];
+		for(int i=1;i<res.length();i++)
+		{
+		    cout<<",";
+		    cout<<res[i];
+		}
+		cout<<"}"<<endl; 
+		}
+		
+	}
+	else
+	{
+		for(int i=1;i<=6;i++)
+		{
+			dice_permute(digits-1,res+to_string(i));
+		}
+	}
+}
+int main()
+{
+	dice_permute(3,"");
+}
