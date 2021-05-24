@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<string>result;
+    void permute(string res,int left,int right)
+    {
+        if(left+right==0)
+        {
+            result.push_back(res);
+        }
+        else
+        {
+            if(left>0)
+                permute(res+'(',left-1,right);
+            if(right>left)
+            {     
+                permute(res+')',left,right-1);
+            }
+        }
+    }
+    vector<string> generateParenthesis(int n) 
+    {
+        permute("",n,n);
+        return result;
+    }
+};
