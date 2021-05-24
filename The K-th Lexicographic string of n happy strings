@@ -1,0 +1,34 @@
+class Solution {
+public:
+    string result="";
+    int count=0;
+    void permute(int n,int k,string res)
+    {
+        if(n==0)
+        {
+            for(int i=0;i<res.length()-1;i++)
+            {
+                if(res[i]==res[i+1])return;
+            }
+            count++;
+            if(k==count)
+                result=res;
+        }
+        else
+        {
+            for(int i=97;i<=99;i++)
+            {
+                if(i==97)
+                    permute(n-1,k,res+"a");
+                else if(i==98)
+                    permute(n-1,k,res+"b");
+                else permute(n-1,k,res+"c");
+            }
+        }
+    }
+    string getHappyString(int n, int k) 
+    {
+        permute(n,k,"");
+        return result;
+    }
+};
