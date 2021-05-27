@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool permute(unsigned long long num,string s)
+    {
+        if(s.size()==0)return true;
+        for(int i=0;i<s.size();i++)
+        {
+            string left=s.substr(0,i+1);
+            string right=s.substr(i+1);
+            unsigned long long lnum=stoull(left);
+            if(num-lnum==1&&permute(lnum,right))
+                return true;
+        }
+        return false;
+    }
+    bool splitString(string s) 
+    {
+        for(int i=0;i<s.size();i++)
+        {
+            string str=s.substr(0,i+1);
+            unsigned long long num=stoull(str);
+            if(permute(num,s.substr(i+1)))return true;
+        }
+        return false;
+    }
+};
