@@ -1,0 +1,48 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<algorithm>
+#include<string.h>
+#include<set>
+using namespace std;
+int max_ele=INT_MIN;
+int dp[10]={0};
+bool permute(vector<int>&nums,int target,int countset,int index,int sum,int k)
+{
+    if(countset==k)
+        return true;
+    if(sum==target)
+        permute(nums,target,countset+1,0,0,k);
+    else
+    {
+        for(int i=index;i<nums.size();i++)
+        {
+            if(i-1>=0&&nums[i]==nums[i-1])continue;
+            if(dp[i]==0&&sum+nums[i]<=target)
+            {
+                dp[i]=0;
+                if(permute(nums,target,countset,i+1,sum+nums[i],k))
+                    return true;
+                dp[i]=1;
+            }
+        }
+        return false;
+    }
+}
+int main()
+{
+    vector<int>a{2,1,5,5,6};
+    int k=3;
+    int sum=0;
+    for(auto it:a)
+        sum+=it;
+    if(sum%k)return false;
+    int target=sum/k;
+    if(permute(a,target,0,0,0,k))
+    {
+        cout<<"true";
+        return 0;
+    }
+    cout<<"False";
+    return 0;
+}
