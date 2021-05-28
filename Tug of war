@@ -1,0 +1,56 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<algorithm>
+#include<string.h>
+using namespace std;
+
+void permute(vector<int>&nums,vector<int>&set1,vector<int>&set2,int s1sum,int s2sum,int index)
+{
+    //cout<<s1sum<<"  "<<s2sum<<endl;
+    if(index==nums.size()&&abs(s1sum-s2sum)==0)
+    {
+       // cout<<s1sum<<" "<<s2sum<<endl;
+        for(int i=0;i<set1.size();i++)
+            cout<<set1[i]<<"  ";
+            cout<<endl;
+            cout<<"SET 2    ";
+        for(int i=0;i<set2.size();i++)
+            cout<<set2[i]<<"  ";
+            cout<<endl;
+
+        return ;
+    }
+    else
+    {
+        if(set1.size()<nums.size()/2+1)
+        {
+            //choose
+            set1.push_back(nums[index]);
+            //explore
+            permute(nums,set1,set2,s1sum+nums[index],s2sum,index+1);
+            //unchoose
+            set1.pop_back();
+        }
+
+        if(set2.size()<nums.size()/2+1)
+        {
+            //choose
+            set2.push_back(nums[index]);
+            //explore
+            permute(nums,set1,set2,s1sum,s2sum+nums[index],index+1);
+            //unchoose
+            set2.pop_back();
+        }
+    }
+    return;
+}
+int main()
+{
+
+    vector<int>nums{3, 4, 5, -3, 100, 1, 89, 54, 23, 20};
+    vector<int>set1;
+    vector<int>set2;
+    permute(nums,set1,set2,0,0,0);
+    return 0;
+}
