@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int counts=0;
+void permute(vector<char>&nums,int digits,vector<char>temp)
+{
+    if(digits==0)
+    {
+        vector<char>nums1=temp;
+        sort(nums1.begin(),nums1.end());
+        if(nums1==temp)
+        counts++;
+    }
+    else
+    {
+        for(int i=0;i<nums.size();i++)
+        {
+            //choose
+            temp.push_back(nums[i]);
+            //explore
+            permute(nums,digits-1,temp);
+            //unchoose
+            temp.pop_back();
+        }
+    }
+}
+    int countVowelStrings(int n)
+    {
+        vector<char>vows{'a','e','i','o','u'};
+        vector<char>temp;
+        permute(vows,n,temp);
+        return counts;
+    }
+};
